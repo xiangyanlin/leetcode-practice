@@ -1,16 +1,24 @@
 package org.example.xyl.swordfingeroffer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 /**
  * 链表
  */
-public class Solution {
+public class LinkListSolution {
 
     public static void main(String[] args) {
-        ListNode head = new ListNode(3);
-        reversePrint(head);
+//        ListNode head = new ListNode(3);
+//        reversePrint(head);
+        Node node = new Node(7);
+        Node next1 = new Node(13);
+        node.random = null;
+        node.next = next1;
+        next1.random = node;
+        copyRandomList(null);
     }
 
     /**
@@ -39,7 +47,7 @@ public class Solution {
     public ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode current = head;
-        while (current != null ) {
+        while (current != null) {
             ListNode next = current.next;
             current.next = prev;
             prev = current;
@@ -52,21 +60,21 @@ public class Solution {
     /**
      * 深拷贝
      */
+    static Map<Node, Node>  cachedNode = new HashMap<Node, Node>();
     public static Node copyRandomList(Node head) {
-        Node result;
-        //next random
-        Node temp = head;
-        result = temp;
-        result.random = temp.random;
-        result.next = temp.next;
-        //递归下一层
-        while (head.next != null ) {
-            copyRandomList(head.next);
+        if (head == null) {
+            return null;
         }
-        return result;
+        if (!cachedNode.containsKey(head)) {
+            Node headNew = new Node(head.val);
+            cachedNode.put(head, headNew);
+            headNew.next = copyRandomList(head.next);
+            headNew.random = copyRandomList(head.random);
+        }
+        return cachedNode.get(head);
     }
-}
 
+}
 
 
 class ListNode {
