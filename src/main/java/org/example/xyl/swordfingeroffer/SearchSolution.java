@@ -1,7 +1,6 @@
 package org.example.xyl.swordfingeroffer;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 查找书案发
@@ -98,19 +97,101 @@ public class SearchSolution {
         return nums.length;
     }
 
-    /** 0 1 2 3 5
-     *  0 2 3 4 5
+    /**
+     * 0 1 2 3 5
+     * 0 2 3 4 5
      * 二分法
      */
     public int missingNumber1(int[] nums) {
         int i = 0, j = nums.length - 1;
-        while(i <= j) {
+        while (i <= j) {
             int m = (i + j) / 2;
-            if(nums[m] == m) i = m + 1;
+            if (nums[m] == m) i = m + 1;
             else j = m - 1;
         }
         return i;
     }
+
+
+
+
+
+
+    public static char firstUniqChar(String s) {
+        Map<Character, Integer> map = new HashMap();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                map.put(c, map.get(c) + 1);
+            } else {
+                map.put(c, 1);
+            }
+        }
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.get(c) == 1) {
+                return c;
+            }
+        }
+        return ' ';
+    }
+
+    public static void main(String[] args) {
+        int a[] = {1, 10, 10, 10};
+        System.out.println(minArray(a));
+    }
+
+    public static int minArray(int[] numbers) {
+        int i = 0, j = numbers.length - 1;
+        while (i <= j) {
+            int m = (i + j) / 2;
+            //和最右边的元素比较
+            if (numbers[m] < numbers[j] ) {
+                //后半部分有序。前面找
+                j = m;
+            } else if (numbers[m] > numbers[j]) {
+                //前半部分有序。去后面找
+                //选择右边
+                i = m + 1;
+            } else {
+                //相等时。最右指针左移一位
+                j = j - 1;
+            }
+        }
+        return numbers[i];
+    }
+
+
+    /**
+     * 在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
+     * 请完成一个高效的函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+     *
+     * 来源：力扣（LeetCode）
+     * 链接：https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof
+     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+     */
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        int row = 0;
+        int column = columns - 1;
+        while (row < rows && column >= 0) {
+            int num = matrix[row][column];
+            if (num == target) {
+                return true;
+            } else if (num > target) {
+                column--;
+            } else {
+                row++;
+            }
+        }
+        return false;
+    }
+
+
 
 
 }
