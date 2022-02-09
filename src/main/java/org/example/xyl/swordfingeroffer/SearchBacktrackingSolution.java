@@ -150,39 +150,39 @@ public class SearchBacktrackingSolution {
     public List<List<Integer>> levelOrder4(TreeNode root) {
         Deque<TreeNode> deque = new LinkedList<>();
         List<List<Integer>> res = new ArrayList<>();
-        if(root != null) {
+        if (root != null) {
             deque.add(root);
         }
-        while(!deque.isEmpty()) {
+        while (!deque.isEmpty()) {
             // 打印奇数层
             List<Integer> tmp = new ArrayList<>();
-            for(int i = deque.size(); i > 0; i--) {
+            for (int i = deque.size(); i > 0; i--) {
                 // 从左向右打印
                 TreeNode node = deque.removeFirst();
                 tmp.add(node.val);
                 // 先左后右加入下层节点
-                if(node.left != null) {
+                if (node.left != null) {
                     deque.addLast(node.left);
                 }
-                if(node.right != null) {
+                if (node.right != null) {
                     deque.addLast(node.right);
                 }
             }
             res.add(tmp);
-            if(deque.isEmpty()) {
+            if (deque.isEmpty()) {
                 break; // 若为空则提前跳出
             }
             // 打印偶数层
             tmp = new ArrayList<>();
-            for(int i = deque.size(); i > 0; i--) {
+            for (int i = deque.size(); i > 0; i--) {
                 // 从右向左打印
                 TreeNode node = deque.removeLast();
                 tmp.add(node.val);
                 // 先右后左加入下层节点
-                if(node.right != null) {
+                if (node.right != null) {
                     deque.addFirst(node.right);
                 }
-                if(node.left != null) {
+                if (node.left != null) {
                     deque.addFirst(node.left);
                 }
             }
@@ -191,6 +191,77 @@ public class SearchBacktrackingSolution {
         return res;
     }
 //--------------------------------------深度搜索优先-----------------------------------------------------
+
+
+    /**
+     * 输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构)
+     * <p>
+     * B是A的子结构， 即 A中有出现和B相同的结构和节点值
+     */
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        return (A != null && B != null) &&
+                (recur(A, B) ||
+                        isSubStructure(A.left, B) ||
+                        isSubStructure(A.right, B)
+                );
+    }
+
+    boolean recur(TreeNode A, TreeNode B) {
+        if (B == null) {
+            return true;
+        }
+        if (A == null || A.val != B.val) {
+            return false;
+        }
+        return recur(A.left, B.left) && recur(A.right, B.right);
+    }
+
+
+    /**
+     * 请完成一个函数，输入一个二叉树，该函数输出它的镜像。
+     * 解法：从叶子节点开始反转
+     */
+    public TreeNode mirrorTree(TreeNode root) {
+        if (null == root) {
+            return null;
+        }
+        TreeNode left = mirrorTree(root.left);
+        TreeNode right = mirrorTree(root.right);
+        root.left = right;
+        root.right = left;
+        return root;
+    }
+
+    public void mirrorChildrenTree(TreeNode root, TreeNode res) {
+        TreeNode right = root.right;
+        if (right != null) {
+            res.left = right;
+            mirrorChildrenTree(right, res.left);
+        }
+        TreeNode left = root.left;
+        if (left != null) {
+            res.right = left;
+            mirrorChildrenTree(left, res.right);
+        }
+
+    }
+
+
+    public boolean isSymmetric(TreeNode root) {
+        return root == null ? true : recurIsSymmetric(root.left, root.right);
+    }
+
+    public boolean recurIsSymmetric(TreeNode L, TreeNode R) {
+        if(L == null && R == null) {
+            return true;
+        }
+        if(L == null || R == null || L.val != R.val) {
+            return false;
+        }
+        return recurIsSymmetric(L.left, R.right) && recurIsSymmetric(L.right, R.left);
+    }
+
+
 
     /**
      * Definition for a binary tree node.
