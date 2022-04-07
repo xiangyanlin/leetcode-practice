@@ -14,6 +14,7 @@ public class DynamicProgramSolution {
      * 时间复杂度O(n)
      */
     int MOD = 1000000007;
+
     public int fib(int n) {
 
         if (n <= 0) {
@@ -22,7 +23,7 @@ public class DynamicProgramSolution {
         if (n == 1) {
             return 1;
         }
-        int fib =1, fib1 = 0, fib2 =0;
+        int fib = 1, fib1 = 0, fib2 = 0;
         for (int i = 2; i <= n; i++) {
             fib2 = fib1;
             fib1 = fib;
@@ -33,10 +34,10 @@ public class DynamicProgramSolution {
 
     /**
      * 矩阵快速幂
-     *      {                           {
-     *                 {1, 1},    *         {1},
-     *                 {1, 0}               {0}
-     *         } 的n次方;                                  }
+     * {                           {
+     * {1, 1},    *         {1},
+     * {1, 0}               {0}
+     * } 的n次方;                                  }
      */
     public int matrixFib(int n) {
         if (n < 2) {
@@ -50,10 +51,10 @@ public class DynamicProgramSolution {
 
     /**
      * 矩阵快速幂
-     *      {                           {                     {                           {
-     *                 {1, 1},    *         {1},                          {1, 1},    *         {1, 0},
-     *                 {1, 0}               {0}           =                {1, 0}              {0, 1}
-     *         } 的n次方;                                  }                        }的n次方 ;            }                       }
+     * {                           {                     {                           {
+     * {1, 1},    *         {1},                          {1, 1},    *         {1, 0},
+     * {1, 0}               {0}           =                {1, 0}              {0, 1}
+     * } 的n次方;                                  }                        }的n次方 ;            }                       }
      */
     public int[][] pow(int[][] a, int n) {
         int[][] ret = {{1, 0}, {0, 1}};
@@ -92,8 +93,8 @@ public class DynamicProgramSolution {
         if (n <= 1) {
             return 1;
         }
-        int fib1 = 1, fib2 = 1, fib=1;
-        for (int i = 2; i <=n; i++) {
+        int fib1 = 1, fib2 = 1, fib = 1;
+        for (int i = 2; i <= n; i++) {
             fib2 = fib1;
             fib1 = fib;
             fib = (fib1 + fib2) % MOD;
@@ -110,7 +111,7 @@ public class DynamicProgramSolution {
         }
         int[][] q = {{1, 1}, {1, 0}};
         //q的n次方 * {{1,1} }  /q的n次方 * {{1,0}, {1, 1}}
-        int[][] ret =  {{1,0}, {1, 1}};
+        int[][] ret = {{1, 0}, {1, 1}};
         while (n > 0) {
             //n的最后一位是1 n为奇数   执行ret * q的n次方
             //若n=9（ ret * q ） n=9
@@ -136,7 +137,7 @@ public class DynamicProgramSolution {
         //暴力解法
         int max = 0;
         for (int i = 1; i < prices.length; i++) {
-            for (int j = i-1; j >= 0; j--) {
+            for (int j = i - 1; j >= 0; j--) {
                 int monkey = prices[i] - prices[j];
                 if (monkey > max) {
                     max = monkey;
@@ -157,11 +158,93 @@ public class DynamicProgramSolution {
             if (prices[i] < min) {
                 min = prices[i];
 
-            } else if(( prices[i] - min) > max){
+            } else if ((prices[i] - min) > max) {
                 max = prices[i] - min;
             }
         }
         return max;
+    }
+
+    /**
+     * 子数组最大和
+     * 动态规划解法 O(n)
+     */
+    public int maxSubArray(int[] nums) {
+        if (null == nums || nums.length == 0) {
+            return 0;
+        }
+        int max = nums[0];
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+            if (sum < num) {
+                sum = num;
+            }
+            if (max < sum) {
+                max = sum;
+            }
+        }
+        return max;
+
+    }
+
+    public int maxSubArray1(int[] nums) {
+        return getInfo(nums, 0, nums.length - 1).mSum;
+    }
+
+    public Status getInfo(int[] a, int l, int r) {
+        if (l == r) {
+            return new Status(a[l], a[l], a[l], a[l]);
+        }
+        //中点
+        int m = (l + r) >> 1;
+        Status lSub = getInfo(a, l, m);
+        Status rSub = getInfo(a, m + 1, r);
+        return pushUp(lSub, rSub);
+    }
+
+    public Status pushUp(Status l, Status r) {
+        int iSum = l.iSum + r.iSum;
+        int lSum = Math.max(l.lSum, l.iSum + r.lSum);
+        int rSum = Math.max(r.rSum, r.iSum + l.rSum);
+        int mSum = Math.max(Math.max(l.mSum, r.mSum), l.rSum + r.lSum);
+        return new Status(lSum, rSum, mSum, iSum);
+    }
+
+    public class Status {
+        public int lSum, rSum, mSum, iSum;
+
+        public Status(int lSum, int rSum, int mSum, int iSum) {
+            this.lSum = lSum;
+            this.rSum = rSum;
+            this.mSum = mSum;
+            this.iSum = iSum;
+        }
+    }
+
+
+    /**
+     * 遍历每个点的最大值
+     */
+    public int maxValue(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(i == 0 && j == 0) {
+                    continue;
+                }
+                if(i == 0) {
+                    grid[i][j] += grid[i][j - 1] ;
+                } else if(j == 0) {
+                    grid[i][j] += grid[i - 1][j];
+                } else {
+                    grid[i][j] += Math.max(grid[i][j - 1], grid[i - 1][j]);
+                }
+            }
+        }
+        return grid[m - 1][n - 1];
+
+
     }
 
 
