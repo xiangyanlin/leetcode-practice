@@ -107,8 +107,6 @@ public class DoublePointerSolution {
     }
 
 
-
-
     public static void main(String[] args) {
         DoublePointerSolution test = new DoublePointerSolution();
         ListNode head = new ListNode(1);
@@ -127,6 +125,30 @@ public class DoublePointerSolution {
         l2.next.next = new ListNode(4);
         ListNode listNode = test.mergeTwoLists(l1, l2);
         System.out.println("1");
+    }
+
+
+    public int[] exchange(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return nums;
+        }
+        int p1 = 0;
+        int p2 = nums.length - 1;
+        while (p1 < p2) {
+            if (nums[p1] % 2 == 0) {
+                swap(nums, p1, p2);
+                p2 --;
+            } else {
+                p1 ++;
+            }
+        }
+        return nums;
+    }
+
+    public void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
 }
