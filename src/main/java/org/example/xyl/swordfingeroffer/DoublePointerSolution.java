@@ -125,6 +125,12 @@ public class DoublePointerSolution {
         l2.next.next = new ListNode(4);
         ListNode listNode = test.mergeTwoLists(l1, l2);
         System.out.println("1");
+
+        int[] nums = {2, 7, 11, 15};
+        int[] ints = test.twoSum(nums, 9);
+        for (int i = 0; i < ints.length; i++) {
+            System.out.println(ints[i]);
+        }
     }
 
 
@@ -137,9 +143,9 @@ public class DoublePointerSolution {
         while (p1 < p2) {
             if (nums[p1] % 2 == 0) {
                 swap(nums, p1, p2);
-                p2 --;
+                p2--;
             } else {
-                p1 ++;
+                p1++;
             }
         }
         return nums;
@@ -149,6 +155,50 @@ public class DoublePointerSolution {
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
+    }
+
+    /**
+     * 输入一个递增排序的数组和一个数字s，在数组中查找两个数，使得它们的和正好是s。如果有多对数字的和等于s，则输出任意一对即可。
+     *
+     * @param nums   递增排序的数组
+     * @param target 数字
+     * @return 输出任意一对即可
+     */
+    public int[] twoSum(int[] nums, int target) {
+        int p1 = 0;
+        int p2 = nums.length - 1;
+        while (p1 < p2) {
+            if (nums[p1] + nums[p2] < target) {
+                p1++;
+            } else if (nums[p1] + nums[p2] > target) {
+                p2++;
+            } else {
+                return new int[]{nums[p1], nums[p2]};
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 单词翻转
+     *
+     * @param s
+     * @return
+     */
+    public String reverseWords(String s) {
+        s = s.trim();
+        if ("".equals(s) || s == null) {
+            return "";
+        }
+        String[] r = s.split("\\s+");
+        StringBuilder sr = new StringBuilder();
+        for (int i = r.length - 1; i >= 0; i--) {
+            sr.append(r[i]);
+            if (i != 0) {
+                sr.append(" ");
+            }
+        }
+        return sr.toString();
     }
 
 }
