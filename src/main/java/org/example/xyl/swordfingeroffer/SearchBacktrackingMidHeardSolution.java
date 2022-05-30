@@ -1,7 +1,10 @@
 package org.example.xyl.swordfingeroffer;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import org.example.xyl.swordfingeroffer.bt.TreeNode;
 
 /**
  * 搜索与回溯算法（中等）
@@ -120,4 +123,10 @@ public class SearchBacktrackingMidHeardSolution {
             return res;
         }
 
+    public List<List<Integer>> pathSum(TreeNode root, int target) {
+            List<List<Integer>> result = new ArrayList<>();
+            return result;
+    }
+
 }
+
