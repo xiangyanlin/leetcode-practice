@@ -7,19 +7,69 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="aliyun-apache-snapshots" />
+      <option name="name" value="aliyun-apache-snapshots" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun-central" />
+      <option name="name" value="aliyun-central" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="glsx-central" />
+      <option name="name" value="glsx-central" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Maven Central repository" />
       <option name="url" value="https://repo1.maven.org/maven2" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="jboss.community" />
-      <option name="name" value="JBoss Community repository" />
-      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://maven.aliyun.com/repository/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun-spring-plugin" />
+      <option name="name" value="aliyun-spring-plugin" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun-jcenter" />
+      <option name="name" value="aliyun-jcenter" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
-      <option name="url" value="https://maven.aliyun.com/repository/public" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun-gradle-plugin" />
+      <option name="name" value="aliyun-gradle-plugin" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun-grails-core" />
+      <option name="name" value="aliyun-grails-core" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun-google" />
+      <option name="name" value="aliyun-google" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun-spring" />
+      <option name="name" value="aliyun-spring" />
+      <option name="url" value="http://192.168.3.233:8787/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
   </component>
 </project>
