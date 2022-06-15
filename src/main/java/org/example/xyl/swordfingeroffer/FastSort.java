@@ -21,7 +21,7 @@ public class FastSort {
             return;
         }
         //取随机一个位置和最后一个交换作为比较的基数
-        int index = (int) Math.random() * (R - L + 1);
+        int index = (int) (Math.random() * (R - L + 1));
         swap(arr, index, R);
         //获取左右边界
         int[] border = partition(arr, L, R);
