@@ -3,7 +3,6 @@ package org.example.xyl.swordfingeroffer.bt;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * 重点：每个节点会到达三次
@@ -12,22 +11,23 @@ import java.util.Queue;
  */
 public class DepthTraversalBT {
 
-//    public static List<List<Integer>> pathSum(TreeNode root, int target) {
-//
-//    }
 
     public static void main(String[] args) {
-        DepthTraversalBT test = new DepthTraversalBT();
-        TreeNode head = new TreeNode(1);
-        head.left = new TreeNode(2);
-        head.right = new TreeNode(3);
-        head.left.left = new TreeNode(4);
-        head.left.right = new TreeNode(5);
-        head.right.left = new TreeNode(6);
-        head.right.right = new TreeNode(7);
+//        DepthTraversalBT test = new DepthTraversalBT();
+//        TreeNode head = new TreeNode(1);
+//        head.left = new TreeNode(2);
+//        head.right = new TreeNode(3);
+//        head.left.left = new TreeNode(4);
+//        head.left.right = new TreeNode(5);
+//        head.right.left = new TreeNode(6);
+//        head.right.right = new TreeNode(7);
+//
+//        List<List<Integer>> lists = test.pathSum(head, 7);
+//        System.out.println("========");
 
-        List<List<Integer>> lists = test.pathSum(head, 7);
-        System.out.println("========");
+        int[] postorder = {1,3,2,6,5};
+        DepthTraversalBT test = new DepthTraversalBT();
+        test.verifyPostorder(postorder);
     }
 
     /**
@@ -59,6 +59,31 @@ public class DepthTraversalBT {
         path.pollLast();
     }
 
+
+    /**
+     * Offer 33. 二叉搜索树的后序遍历序列
+     * 左右子树为子问题  找到正确的根是当前返回
+     */
+    public boolean verifyPostorder(int[] postorder) {
+        return recur(postorder, 0, postorder.length - 1);
+    }
+    boolean recur(int[] postorder, int i, int j) {
+        if(i >= j) {
+            return true;
+        }
+        int p = i;
+        while(postorder[p] < postorder[j]) {
+            p++;
+        }
+        int m = p;
+        while(postorder[p] > postorder[j]) {
+            p++;
+        }
+        boolean cur = p == j;
+        boolean left = recur(postorder, i, m - 1);
+        boolean right = recur(postorder, m, j - 1);
+        return cur && left && right;
+    }
 
 
 }
