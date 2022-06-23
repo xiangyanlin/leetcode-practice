@@ -31,7 +31,7 @@ public class XORTest {
     }
 
     public static void main(String[] args) {
-        int nums[] = {1 ,2 ,2 ,3,5 ,5};
+        int nums[] = {1, 2, 2, 3, 5, 5};
         XORTest XORTest = new XORTest();
         XORTest.two(nums);
     }
