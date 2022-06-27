@@ -73,6 +73,9 @@ public class MediumSolution {
 
     //---------------------------剑指 Offer 62. 圆圈中最后剩下的数字----------------
 
+    /**
+     * 本题是著名的 “约瑟夫环” 问题
+     */
     public int lastRemaining(int n, int m) {
         return f(n, m);
     }
@@ -87,6 +90,16 @@ public class MediumSolution {
     }
 
 
+    /**
+     * 本题是著名的 “约瑟夫环” 问题
+     * 删除的数字为 (m−1)%n
+     * 设 t =  m%n 删除一个后 t,t+1,t+2,...,0,1,...,t−3,t−2   t-1被删掉了
+     * f(n)
+     * =(f(n−1)+t)%n
+     * =(f(n−1)+m%n)%n
+     * =(f(n−1)+m)%n
+     *
+     */
     public int lastRemaining1(int n, int m) {
         int x = 0;
         for (int i = 2; i <= n; i++) {
