@@ -1,4 +1,4 @@
-package graph;
+package org.example.xyl.swordfingeroffer.graph;
 
 import java.util.HashMap;
 import java.util.HashSet;

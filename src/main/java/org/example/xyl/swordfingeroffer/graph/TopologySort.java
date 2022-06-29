@@ -1,4 +1,4 @@
-package graph;
+package org.example.xyl.swordfingeroffer.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Queue;
  */
 public class TopologySort {
 
-	// directed graph and no loop
+	// directed org.example.xyl.swordfingeroffer.graph and no loop
 	public static List<Node> sortedTopology(Graph graph) {
 		// key：某一个node
 		// value：剩余的入度

@@ -1,4 +1,4 @@
-package graph;
+package org.example.xyl.swordfingeroffer.graph;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * 最小生成树 p 算法
- * undirected graph only
+ * undirected org.example.xyl.swordfingeroffer.graph only
  *
  * @author xiangyanlin
  * @date 2022/6/29
@@ -52,7 +52,7 @@ public class Prim {
 	}
 
 	// 请保证graph是连通图
-	// graph[i][j]表示点i到点j的距离，如果是系统最大值代表无路
+	// org.example.xyl.swordfingeroffer.graph[i][j]表示点i到点j的距离，如果是系统最大值代表无路
 	// 返回值是最小连通图的路径之和
 	public static int prim(int[][] graph) {
 		int size = graph.length;

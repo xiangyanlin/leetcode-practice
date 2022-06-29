@@ -1,4 +1,4 @@
-package graph;
+package org.example.xyl.swordfingeroffer.graph;
 /**
  * @author xiangyanlin
  * @date 2022/6/29

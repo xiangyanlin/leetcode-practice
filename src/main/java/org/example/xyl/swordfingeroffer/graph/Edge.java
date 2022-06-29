@@ -1,4 +1,4 @@
-package graph;
+package org.example.xyl.swordfingeroffer.graph;
 
 public class Edge {
 	public int weight;

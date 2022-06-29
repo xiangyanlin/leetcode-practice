@@ -1,4 +1,4 @@
-package graph;
+package org.example.xyl.swordfingeroffer.graph;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,7 +12,7 @@ import java.util.Stack;
 
 /**
  * 最小生成树 k 算法
- * undirected graph only
+ * undirected org.example.xyl.swordfingeroffer.graph only
  *
  * @author xiangyanlin
  * @date 2022/6/29
