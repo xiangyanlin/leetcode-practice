@@ -20,9 +20,9 @@ public class UnionFind {
 	}
 
 	public static class UnionSet<V> {
-		public HashMap<V, Node<V>> nodes;
-		public HashMap<Node<V>, Node<V>> parents;
-		public HashMap<Node<V>, Integer> sizeMap;
+		public HashMap<V, Node<V>> nodes = new HashMap<>(16);
+		public HashMap<Node<V>, Node<V>> parents = new HashMap<>(16);
+		public HashMap<Node<V>, Integer> sizeMap = new HashMap<>(16);
 
 		public UnionSet(List<V> values) {
 			for (V value : values) {
@@ -72,6 +72,11 @@ public class UnionFind {
 					sizeMap.remove(aHead);
 				}
 			}
+		}
+
+
+		public int size() {
+			return sizeMap.size();
 		}
 	}
 
