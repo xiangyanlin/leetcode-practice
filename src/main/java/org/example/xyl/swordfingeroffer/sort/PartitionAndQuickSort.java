@@ -1,6 +1,6 @@
 package org.example.xyl.swordfingeroffer.sort;
 
-public class Code03_PartitionAndQuickSort {
+public class PartitionAndQuickSort {
 
 	public static void swap(int[] arr, int i, int j) {
 		int tmp = arr[i];
