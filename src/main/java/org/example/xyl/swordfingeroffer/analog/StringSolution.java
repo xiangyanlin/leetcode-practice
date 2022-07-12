@@ -1,5 +1,8 @@
 package org.example.xyl.swordfingeroffer.analog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author xiangyanlin
  * @date 2022/7/11
@@ -105,14 +108,58 @@ public class StringSolution {
         return sign * res;
     }
 
+    //------------------ 剑指 Offer 38. 字符串的排列-----------------
+
+    /**
+     * 无重复全排列
+     */
+    List<String> res ;
+    char[] chars;
+    public String[] permutation(String s) {
+        res = new ArrayList<>();
+        if (s == null || s.length() == 0) {
+            return res.toArray(new String[0]);
+        }
+        chars = s.toCharArray();
+        //递归
+        process(0);
+        return res.toArray(new String[0]);
+    }
+
+    public  void process( int i) {
+        if (i == chars.length) {
+            res.add(String.valueOf(chars));
+        }
+        // visit[0 1 .. 25]
+        boolean[] visit = new boolean[26];
+        for (int j = i; j < chars.length; j++) {
+            if (!visit[chars[j] - 'a']) {
+                visit[chars[j] - 'a'] = true;
+                swap(chars, i, j);
+                process( i + 1);
+                swap(chars, i, j);
+            }
+        }
+    }
+
+    public  void swap(char[] chs, int i, int j) {
+        char tmp = chs[i];
+        chs[i] = chs[j];
+        chs[j] = tmp;
+    }
+
 
     public static void main(String[] args) {
         StringSolution solution = new StringSolution();
 //        boolean isNumber = solution.isNumber("3.");
 //        System.out.println(isNumber);
-        System.out.println(Integer.MAX_VALUE );
-        System.out.println(Integer.MAX_VALUE );
-        System.out.println(Math.pow(2, 31) -1);
-        System.out.println(solution.strToInt("as"));
+//        System.out.println(Integer.MAX_VALUE );
+//        System.out.println(Integer.MAX_VALUE );
+//        System.out.println(Math.pow(2, 31) -1);
+//        System.out.println(solution.strToInt("as"));
+        String[] abcs = solution.permutation("abc");
+        for (String s: abcs){
+            System.out.println(s);
+        }
     }
 }
