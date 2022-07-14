@@ -14,6 +14,9 @@ public class MediumSolution {
 
     //------------------剑指 Offer 14- I. 剪绳子--------------
 
+    /**
+     * 2 <= n <= 58
+     */
     public int cuttingRope(int n) {
         if(n <= 3) {
             return n - 1;
