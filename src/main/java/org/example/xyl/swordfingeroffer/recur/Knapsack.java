@@ -55,8 +55,12 @@ public class Knapsack {
 		return Math.max(p1, p2);
 	}
 
+	/**
+	 * 从上面的暴力递归到动态规划
+	 */
 	public static int dpWay(int[] w, int[] v, int bag) {
 		int N = w.length;
+		//缓存重复姐
 		int[][] dp = new int[N + 1][bag + 1];
 		for (int index = N - 1; index >= 0; index--) {
 			for (int rest = 1; rest <= bag; rest++) {
