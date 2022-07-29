@@ -120,12 +120,142 @@ public class DpHardSolution {
     }
 
 
+    //-----------------------剑指offer19 正则表达式匹配 --------------------------------------
+
+
+    String s, p;
+
+    /**
+     * '*'表示它前面的字符可以出现任意次（含0次）
+     * 模式中的字符'.'表示任意一个字符
+     */
+    public boolean isMatch(String s, String p) {
+        this.s = s;
+        this.p = p;
+        int m = s.length() , n = p.length() ;
+        return isMatchProcess(m, n);
+    }
+
+    /**
+     * todo test 边界值
+     * 暴力递归
+     * @param i s的第i个字符
+     * @param j p的第j个字符
+     * @return s是否匹配
+     */
+    public boolean isMatchProcess(int i, int j) {
+
+        //base case
+        if (i == 0 && j == 0) {
+            return true;
+        } else if (i == 0) {
+            return ( j == 1 || isMatchProcess(0, j - 2))
+                    && p.charAt(j - 1) == '*';
+        }
+
+        if (p.charAt(j - 1) == '*') {
+            //p[j]能匹配s[i -1]
+
+            if ( j == 1) {
+                return true;
+            }
+            if (i == 1) {
+                return isMatchProcess(i, j - 1) || isMatchProcess(0, j);
+            }
+
+            return
+                    //p的上一个能匹配
+                    isMatchProcess(i, j - 1)
+                            ||
+                            //p能匹配s[i -1]
+                            (isMatchProcess(i - 1, j)
+                                    && (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.'));
+        } else {
+            //p[j - 1] 能匹配 s[i -1] 且 （p[j ] 为 '.'|| p[j ] ==  s[i ]  ）
+            return isMatchProcess(i - 1, j - 1)
+                    && (p.charAt(j - 1) == '.'
+                    || s.charAt(i - 1) == p.charAt(j - 1));
+        }
+    }
+
+
+    public boolean isMatch1(String s, String p) {
+        int m = s.length() + 1, n = p.length() + 1;
+        //默认值 false
+        boolean[][] dp = new boolean[m][n];
+        //base case  s p都是空
+        dp[0][0] = true;
+        //s为空时 p只能为空或*
+        for (int j = 2; j < n; j += 2) {
+            dp[0][j] =
+                    dp[0][j - 2]
+                            && p.charAt(j - 1) == '*';
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] =
+                        p.charAt(j - 1) == '*'
+                                ?
+                                //p[j]能匹配s[i -1]
+                                dp[i][j - 2] ||
+                                        dp[i - 1][j]
+                                                && (s.charAt(i - 1) == p.charAt(j - 2)
+                                                || p.charAt(j - 2) == '.')
+                                :
+                                //p[j - 1] 能匹配 s[i -1] 且 （p[j ] 为 '.'|| p[j ] ==  s[i ]  ）
+                                dp[i - 1][j - 1]
+                                        && (p.charAt(j - 1) == '.'
+                                        || s.charAt(i - 1) == p.charAt(j - 1));
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
+
+    public boolean isMatch2(String s, String p) {
+        int m = s.length() + 1, n = p.length() + 1;
+        boolean[][] dp = new boolean[m][n];
+        dp[0][0] = true;
+        // 初始化首行
+        for(int j = 2; j < n; j += 2) {
+            dp[0][j] = dp[0][j - 2] && p.charAt(j - 1) == '*';
+        }
+        // 状态转移
+        for(int i = 1; i < m; i++) {
+            for(int j = 1; j < n; j++) {
+                if(p.charAt(j - 1) == '*') {
+                    if(dp[i][j - 2]) {
+                        dp[i][j] = true;                                            // 1.
+                    } else if(dp[i - 1][j] && s.charAt(i - 1) == p.charAt(j - 2)) {
+                        dp[i][j] = true; // 2.
+                    } else if(dp[i - 1][j] && p.charAt(j - 2) == '.') {
+                        dp[i][j] = true;             // 3.
+                    }
+                } else {
+                    if(dp[i - 1][j - 1] && s.charAt(i - 1) == p.charAt(j - 1)) {
+                        dp[i][j] = true;  // 1.
+                    } else if(dp[i - 1][j - 1] && p.charAt(j - 1) == '.') {
+                        dp[i][j] = true;         // 2.
+                    }
+                }
+            }
+        }
+        return dp[m - 1][n - 1];
+    }
+
+
+
+
     public static void main(String[] args) {
         DpHardSolution solution = new DpHardSolution();
-        System.out.println(Arrays.toString(solution.dicesProbability(3)));
-        System.out.println(Arrays.toString(solution.dicesProbability1(3)));
+//        System.out.println(Arrays.toString(solution.dicesProbability(3)));
+//        System.out.println(Arrays.toString(solution.dicesProbability1(3)));
 //        System.out.println(solution.dicesProbability1(2).length);
         //046296296296296294
 //        System.out.println(0.004629629629629629 * 9);
+        System.out.println(solution.isMatch("", " *"));
+        System.out.println(solution.isMatch1("", " *"));
+//       boolean[] arr = new boolean[1];
+//        System.out.println(arr[0]);
     }
 }
