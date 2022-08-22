@@ -128,6 +128,7 @@ public class DpHardSolution {
     /**
      * '*'表示它前面的字符可以出现任意次（含0次）
      * 模式中的字符'.'表示任意一个字符
+     * @param p  可能为空，且只包含从 a-z 的小写字母以及字符 . 和 *，无连续的 '*'。
      */
     public boolean isMatch(String s, String p) {
         this.s = s;
@@ -253,8 +254,8 @@ public class DpHardSolution {
 //        System.out.println(solution.dicesProbability1(2).length);
         //046296296296296294
 //        System.out.println(0.004629629629629629 * 9);
-        System.out.println(solution.isMatch("", " *"));
-        System.out.println(solution.isMatch1("", " *"));
+//        System.out.println(solution.isMatch("", " *"));
+        System.out.println(solution.isMatch2("", "***"));
 //       boolean[] arr = new boolean[1];
 //        System.out.println(arr[0]);
     }
