@@ -1,4 +1,4 @@
-package org.example.xyl.top100;
+package org.example.xyl.top100.number;
 
 /**
  * @author xiangyanlin
