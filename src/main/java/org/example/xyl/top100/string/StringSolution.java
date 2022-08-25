@@ -1,6 +1,11 @@
 package org.example.xyl.top100.string;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,6 +21,7 @@ public class StringSolution {
     /**
      * 滑动窗口 -- 官方答案
      * 无重复字符最长子串
+     *
      * @param s 由英文字母、数字、符号和空格组成 0 <= s.length <= 5 * 104
      * @return length
      */
@@ -108,13 +114,110 @@ public class StringSolution {
     }
 
 
+    //-----------------------电话号码的字母组合----------------------------
+
+
+    /**
+     * 电话号码的字母组合
+     *
+     * @param digits 0 <= digits.length <= 4
+     *               digits[i] 是范围 ['2', '9'] 的一个数字。
+     * @return 电话号码的字母组合集合
+     */
+    public List<String> letterCombinations(String digits) {
+        if (digits.length() == 0) {
+            return new ArrayList<>();
+        }
+        char[] numbers = digits.toCharArray();
+        List<String> combinations = new ArrayList<>();
+        //按键组合
+        String[][] digitsStr = {
+                {"a", "b", "c"},
+                {"d", "e", "f"},
+                {"g", "h", "i"},
+                {"j", "k", "l"},
+                {"m", "n", "o"},
+                {"p", "q", "r", "s"},
+                {"t", "u", "v"},
+                {"w", "x", "y", "z"},
+        };
+        //0 -- 7
+        // 2 -9
+        for (char number : numbers) {
+            int digitsIndex = Integer.parseInt(String.valueOf(number)) - 2;
+            String[] curDigitsStr = digitsStr[digitsIndex];
+            if (combinations.isEmpty()) {
+                combinations = new ArrayList<>(Arrays.asList(curDigitsStr));
+                continue;
+            }
+            List<String> temp = new ArrayList<>();
+            for (String combination : combinations) {
+                for (String value : curDigitsStr) {
+                    String s = combination + value;
+                    temp.add(s);
+                }
+            }
+            combinations.clear();
+            combinations.addAll(temp);
+        }
+        return combinations;
+    }
+
+
+    /**
+     * 官方答案
+     */
+    public List<String> letterCombinations1(String digits) {
+        List<String> combinations = new ArrayList<String>();
+        if (digits.length() == 0) {
+            return combinations;
+        }
+        Map<Character, String> phoneMap = new HashMap<Character, String>() {{
+            put('2', "abc");
+            put('3', "def");
+            put('4', "ghi");
+            put('5', "jkl");
+            put('6', "mno");
+            put('7', "pqrs");
+            put('8', "tuv");
+            put('9', "wxyz");
+        }};
+        backtrack(combinations, phoneMap, digits, 0, new StringBuffer());
+        return combinations;
+    }
+
+    public void backtrack(List<String> combinations, Map<Character, String> phoneMap, String digits, int index, StringBuffer combination) {
+        if (index == digits.length()) {
+            combinations.add(combination.toString());
+        } else {
+            char digit = digits.charAt(index);
+            String letters = phoneMap.get(digit);
+            int lettersCount = letters.length();
+            for (int i = 0; i < lettersCount; i++) {
+                combination.append(letters.charAt(i));
+                backtrack(combinations, phoneMap, digits, index + 1, combination);
+                combination.deleteCharAt(index);
+            }
+        }
+    }
+
+
 
     public static void main(String[] args) {
         StringSolution solution = new StringSolution();
 //        String s = "bbbbb";
-        String s = "abcabcbb";
+//        String s = "abcabcbb";
 //        s = "aabaab!bb";
-        System.out.println(solution.lengthOfLongestSubstring(s));
+//        System.out.println(solution.lengthOfLongestSubstring(s));
+        String digits1 = "23";
+        String digits2 = "";
+        String digits3 = "2";
+        System.out.println(solution.letterCombinations(digits1).toString());
+        System.out.println(solution.letterCombinations(digits2).toString());
+        System.out.println(solution.letterCombinations(digits3).toString());
+        System.out.println(solution.letterCombinations1(digits1).toString());
+        System.out.println(solution.letterCombinations1(digits2).toString());
+        System.out.println(solution.letterCombinations1(digits3).toString());
     }
 
 }
