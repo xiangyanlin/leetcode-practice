@@ -93,8 +93,8 @@ public class ValidSolution {
             ans.add("");
         } else {
             for (int c = 0; c < n; ++c) {
-                for (String left: generate(c)) {
-                    for (String right: generate(n - 1 - c)) {
+                for (String left : generate(c)) {
+                    for (String right : generate(n - 1 - c)) {
                         ans.add("(" + left + ")" + right);
                     }
                 }
@@ -104,9 +104,44 @@ public class ValidSolution {
         return ans;
     }
 
+
+    /**
+     * 最长有效括号
+     *
+     * @param s 0 <= s.length <= 3 * 104
+     *          s[i] 为 '(' 或 ')'
+     * @return 子括号数量
+     */
+    public int longestValidParentheses(String s) {
+        int maxans = 0;
+        int[] dp = new int[s.length()];
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == ')') {
+                if (s.charAt(i - 1) == '(') {
+                    dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
+                }
+                else if (i - dp[i - 1] > 0
+                        && s.charAt(i - dp[i - 1] - 1) == '(') {
+                    //                               dp[i - 1]是上个代表的有效子串
+                    //s.charAt(i - dp[i - 1] - 1)    第i - dp[i - 1]个 必须是 '('
+
+                    // sub为前一个"）"  所在的有效 子集合
+                    int sub = (i - dp[i - 1]) >= 2 ? dp[i - dp[i - 1] - 2] : 0;
+                    dp[i] = dp[i - 1] + sub + 2;
+                }
+                //不满足条件则代表  以当前符号结尾无法找到有效的  所以取默认值0
+
+                maxans = Math.max(maxans, dp[i]);
+            }
+        }
+        return maxans;
+    }
+
+
     /**
      * 括号生成
      * 官方题解 动态规划
+     *
      * @param n 1 <= n <= 8
      * @return 排列组合
      */
@@ -117,7 +152,8 @@ public class ValidSolution {
     public static void main(String[] args) {
         ValidSolution solution = new ValidSolution();
 //        System.out.println(solution.isValid("()[]{}"));
-        List<String> list = solution.generateParenthesis(3);
-        System.out.println(list.toString());
+//        List<String> list = solution.generateParenthesis(3);
+        int i = solution.longestValidParentheses("()()()()))");
+        System.out.println(i);
     }
 }
