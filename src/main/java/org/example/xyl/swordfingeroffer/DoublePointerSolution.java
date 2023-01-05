@@ -73,6 +73,8 @@ public class DoublePointerSolution {
 
     /**
      * 合并两个排序的列表
+     * 输入：1->2->4, 1->3->4
+     * 输出：1->1->2->3->4->4
      */
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null) {

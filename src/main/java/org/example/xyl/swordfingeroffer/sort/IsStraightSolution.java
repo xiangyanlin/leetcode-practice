@@ -43,6 +43,12 @@ public class IsStraightSolution {
         quickSort(nums, l, r);
 
     }
+
+    /**
+     * 1 取随机数 和最后一位交换 作为基准元素
+     * 2 比基准元素大的元素移动到基准元素的右侧，比基准元素小的移动到作左侧
+     * 3 对 基准袁术的前后 递归重复此过程
+     */
     public void quickSort(int[] nums, int l, int r) {
         if (l >= r) {
             return;
@@ -68,11 +74,15 @@ public class IsStraightSolution {
         int less = l - 1;
         while (l < r) {
             if (nums[l] <= nums[r]) {
+                //<= 未做交换
+                //>= 将大于的元素放在当前元素之后
                 swap(nums, ++less, l);
             }
             l++;
         }
+        // (<=) (<=) (<=) (<=) (>) (>) (>) (基准)
         swap(nums, ++less, r);
+        // (<=) (<=) (<=) (<=)  (基准) (>) (>) (>)
         return less;
     }
 
