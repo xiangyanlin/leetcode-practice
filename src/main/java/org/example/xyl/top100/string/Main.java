@@ -1,9 +1,7 @@
 package org.example.xyl.top100.string;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -40,16 +38,15 @@ public class Main {
         //获取个数
         int num = sc.nextInt();
 
-        TreeSet set = new TreeSet();
+        TreeSet<Integer> set = new TreeSet<>();
         //输入
         for(int i =0 ; i < num ;i++){
             set.add(sc.nextInt());
         }
 
         //输出
-        Iterator iterator = set.iterator();
-        while (iterator.hasNext()){
-            System.out.println(iterator.next());
+        for (Integer integer : set) {
+            System.out.println(integer);
         }
     }
 }
