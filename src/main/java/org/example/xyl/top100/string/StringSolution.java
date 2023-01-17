@@ -202,6 +202,44 @@ public class StringSolution {
     }
 
 
+    /**
+     * 1839. 所有元音按顺序排布的最长子字符串
+     *
+     * @param word 1 <= word.length <= 5 * 105
+     *             word 只包含字符 'a'，'e'，'i'，'o' 和 'u'
+     * @return 最长子字符串V长度
+     */
+    public int longestBeautifulSubstring(String word) {
+        //1.首先如果数组长度小于5的话，不可能满足美丽的定义，将这种情况提前排除
+        if (word.length() < 5) {
+            return 0;
+        }
+        char[] chars = word.toCharArray();
+        int res = 0;
+        int rlen = 1;
+        int vowel = 1;
+        for (int i = 1; i < chars.length; i++) {
+            //- 如果当前字符>= 上一个小（顺序意义），那么当前子串长度+1
+            if (chars[i] >= chars[i - 1]) {
+                rlen++;
+            }
+            //- 如果当前字符比上一个大，那么子串中元音字母种类+1
+            if (chars[i] > chars[i - 1]) {
+                vowel++;
+            }
+            //- 如果当前字符比上一个小，那么肯定当前字串不美丽，以当前字符为首继续进行遍历
+            if (chars[i] < chars[i - 1]) {
+                rlen = 1;
+                vowel = 1;
+            }
+            if (vowel == 5) {
+                res = Math.max(rlen, res);
+            }
+
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
         StringSolution solution = new StringSolution();

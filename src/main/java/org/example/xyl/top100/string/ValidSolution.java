@@ -11,7 +11,7 @@ import java.util.Stack;
 public class ValidSolution {
 
     /**
-     * 有效的括号
+     * 20 有效的括号
      *
      * @param s 1 <= s.length <= 104
      *          s 仅由括号 '()[]{}' 组成
@@ -32,6 +32,30 @@ public class ValidSolution {
             }
         }
         return stack.isEmpty();
+    }
+
+    /**
+     * 1614. 括号的最大嵌套深度
+     *
+     * @param s 1 <= s.length <= 100
+     *          s 由数字 0-9 和字符 '+'、'-'、'*'、'/'、'('、')' 组成
+     *          题目数据保证括号表达式 s 是 有效的括号表达式
+     * @return 最大深度
+     */
+    public int maxDepth(String s) {
+        char[] chars = s.toCharArray();
+        int max = 0, depth = 0;
+        for (char ch : chars) {
+            //如果是左括号
+            if (ch == '(') {
+                depth++;
+                max = Math.max(depth, max);
+            } else if (ch == ')') {
+                //右括号
+                depth--;
+            }
+        }
+        return max;
     }
 
     public boolean validBrackets(char left, char right) {
@@ -119,8 +143,7 @@ public class ValidSolution {
             if (s.charAt(i) == ')') {
                 if (s.charAt(i - 1) == '(') {
                     dp[i] = (i >= 2 ? dp[i - 2] : 0) + 2;
-                }
-                else if (i - dp[i - 1] > 0
+                } else if (i - dp[i - 1] > 0
                         && s.charAt(i - dp[i - 1] - 1) == '(') {
                     //                               dp[i - 1]是上个代表的有效子串
                     //s.charAt(i - dp[i - 1] - 1)    第i - dp[i - 1]个 必须是 '('
