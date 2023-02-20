@@ -61,11 +61,14 @@ public class CoinSolution {
         int[] dp = new int[amount + 1];
         Arrays.fill(dp, max);
         dp[0] = 0;
+        //从i递推到amount
         for (int i = 1; i <= amount; i++) {
+            //遍历所有面值  取满足面值为i时 最小数量选择
             for (int j = 0; j < coins.length; j++) {
                 int coin = coins[j];
                 if (coin <= i) {
                     dp[i] = Math.min(
+                            //dp[i - coin] + 1 ： 从dp[i - coin] 到 dp[i]   选择面值coin  数量+ 1
                             dp[i], dp[i - coin] + 1
                     );
                 }

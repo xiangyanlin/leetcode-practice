@@ -157,9 +157,11 @@ public class StringSolution {
 //        System.out.println(Integer.MAX_VALUE );
 //        System.out.println(Math.pow(2, 31) -1);
 //        System.out.println(solution.strToInt("as"));
-        String[] abcs = solution.permutation("abc");
-        for (String s: abcs){
-            System.out.println(s);
-        }
+//        String[] abcs = solution.permutation("abc");
+//        for (String s: abcs){
+//            System.out.println(s);
+//        }
+        System.out.println('A' - 'a');
+        System.out.println('f' - 'a');
     }
 }
